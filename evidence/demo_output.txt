@@ -1,0 +1,39 @@
+
+==================== PHASE 1: SUCCESS (no delay) ====================
+{"delay_seconds": 0.0}
+{"status": "success", "order_id": "ord_46d4c8f9", "payment_id": "pay_13d7d7ea5f", "request_id": "success-1", "latency_ms": 41.43}  [HTTP 200, 0.052568s]
+{"status": "success", "order_id": "ord_632022ab", "payment_id": "pay_d4912043b3", "request_id": "success-2", "latency_ms": 2.86}  [HTTP 200, 0.004501s]
+{"status": "success", "order_id": "ord_3be22e68", "payment_id": "pay_ff6e72933a", "request_id": "success-3", "latency_ms": 3.05}  [HTTP 200, 0.004727s]
+{"status": "success", "order_id": "ord_1e41ebc9", "payment_id": "pay_18d581eefc", "request_id": "success-4", "latency_ms": 2.34}  [HTTP 200, 0.003692s]
+{"status": "success", "order_id": "ord_7a050e46", "payment_id": "pay_7f80ca3634", "request_id": "success-5", "latency_ms": 2.85}  [HTTP 200, 0.004523s]
+--- checkout /metrics
+{"service": "checkout", "uptime_s": 0.8, "requests_total": 5, "requests_success": 5, "requests_failure": 0, "failure_reasons": {}, "error_rate": 0.0, "latency_ms": {"avg": 10.51, "p50": 2.86, "p95": 41.43, "max": 41.43}, "last_10": {"requests": 5, "error_rate": 0.0, "avg_latency_ms": 10.51}, "payment_timeout_s": 2.0}
+
+==================== PHASE 2: FAILURE (Payment delay 5s > Checkout timeout 2s) ====================
+{"delay_seconds": 5.0}
+{"status": "failed", "order_id": "ord_38310731", "reason": "payment_timeout", "request_id": "timeout-1", "latency_ms": 2004.23}  [HTTP 504, 2.006109s]
+{"status": "failed", "order_id": "ord_802eca62", "reason": "payment_timeout", "request_id": "timeout-2", "latency_ms": 2003.39}  [HTTP 504, 2.005451s]
+{"status": "failed", "order_id": "ord_6c897142", "reason": "payment_timeout", "request_id": "timeout-3", "latency_ms": 2003.6}  [HTTP 504, 2.006425s]
+{"status": "failed", "order_id": "ord_3f8027f8", "reason": "payment_timeout", "request_id": "timeout-4", "latency_ms": 2002.75}  [HTTP 504, 2.004381s]
+{"status": "failed", "order_id": "ord_99ebbc24", "reason": "payment_timeout", "request_id": "timeout-5", "latency_ms": 2003.17}  [HTTP 504, 2.005305s]
+--- checkout still alive?
+{"status": "ok", "service": "checkout"}
+--- checkout /metrics
+{"service": "checkout", "uptime_s": 10.9, "requests_total": 10, "requests_success": 5, "requests_failure": 5, "failure_reasons": {"payment_timeout": 5}, "error_rate": 0.5, "latency_ms": {"avg": 1006.97, "p50": 41.43, "p95": 2004.23, "max": 2004.23}, "last_10": {"requests": 10, "error_rate": 0.5, "avg_latency_ms": 1006.97}, "payment_timeout_s": 2.0}
+
+==================== PHASE 3: RECOVERY (delay removed) ====================
+{"delay_seconds": 0.0}
+{"status": "success", "order_id": "ord_3f9d9300", "payment_id": "pay_79a43eb1f3", "request_id": "recovery-1", "latency_ms": 2.65}  [HTTP 200, 0.003763s]
+{"status": "success", "order_id": "ord_3e013d66", "payment_id": "pay_4ff7b48cb1", "request_id": "recovery-2", "latency_ms": 1.51}  [HTTP 200, 0.002580s]
+{"status": "success", "order_id": "ord_09439d35", "payment_id": "pay_937937f338", "request_id": "recovery-3", "latency_ms": 1.44}  [HTTP 200, 0.002353s]
+{"status": "success", "order_id": "ord_ec74c69e", "payment_id": "pay_3cc3b5fbd0", "request_id": "recovery-4", "latency_ms": 1.52}  [HTTP 200, 0.002488s]
+{"status": "success", "order_id": "ord_a9d0cce1", "payment_id": "pay_0cd6175a23", "request_id": "recovery-5", "latency_ms": 1.46}  [HTTP 200, 0.002372s]
+{"status": "success", "order_id": "ord_3b7f2398", "payment_id": "pay_84c5706f0d", "request_id": "recovery-6", "latency_ms": 1.9}  [HTTP 200, 0.003073s]
+{"status": "success", "order_id": "ord_ea75959c", "payment_id": "pay_b125f070f5", "request_id": "recovery-7", "latency_ms": 2.08}  [HTTP 200, 0.003252s]
+{"status": "success", "order_id": "ord_5565eae4", "payment_id": "pay_898862afe9", "request_id": "recovery-8", "latency_ms": 5.44}  [HTTP 200, 0.007225s]
+{"status": "success", "order_id": "ord_40387aa8", "payment_id": "pay_c87f44e714", "request_id": "recovery-9", "latency_ms": 2.15}  [HTTP 200, 0.003309s]
+{"status": "success", "order_id": "ord_4f57246a", "payment_id": "pay_a42900b727", "request_id": "recovery-10", "latency_ms": 1.91}  [HTTP 200, 0.003106s]
+--- checkout /metrics
+{"service": "checkout", "uptime_s": 11.1, "requests_total": 20, "requests_success": 15, "requests_failure": 5, "failure_reasons": {"payment_timeout": 5}, "error_rate": 0.25, "latency_ms": {"avg": 504.59, "p50": 2.85, "p95": 2003.6, "max": 2004.23}, "last_10": {"requests": 10, "error_rate": 0.0, "avg_latency_ms": 2.21}, "payment_timeout_s": 2.0}
+--- payment /metrics
+{"service": "payment", "uptime_s": 15.2, "requests_total": 20, "requests_success": 20, "requests_failure": 0, "failure_reasons": {}, "error_rate": 0.0, "latency_ms": {"avg": 1251.19, "p50": 0.17, "p95": 5005.42, "max": 5005.65}, "last_10": {"requests": 10, "error_rate": 0.0, "avg_latency_ms": 1001.21}}

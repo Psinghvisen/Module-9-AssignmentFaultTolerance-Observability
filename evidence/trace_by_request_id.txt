@@ -1,0 +1,22 @@
+### grep -h '"success-1"' logs/checkout.log logs/payment.log | sort -s -t'"' -k4,4
+{"ts": "2026-11-23T19:59:20.047+00:00", "service": "checkout", "level": "INFO", "event": "checkout_received", "request_id": "success-1", "order_id": "ord_46d4c8f9", "amount": 49.99}
+{"ts": "2026-11-23T19:59:20.047+00:00", "service": "checkout", "level": "INFO", "event": "calling_payment", "request_id": "success-1", "order_id": "ord_46d4c8f9", "url": "http://localhost:8082/pay", "timeout_s": 2.0}
+{"ts": "2026-11-23T19:59:20.087+00:00", "service": "payment", "level": "INFO", "event": "payment_received", "request_id": "success-1", "order_id": "ord_46d4c8f9", "amount": 49.99}
+{"ts": "2026-11-23T19:59:20.088+00:00", "service": "payment", "level": "INFO", "event": "payment_completed", "request_id": "success-1", "order_id": "ord_46d4c8f9", "payment_id": "pay_13d7d7ea5f", "status": 200, "latency_ms": 0.21}
+{"ts": "2026-11-23T19:59:20.088+00:00", "service": "checkout", "level": "INFO", "event": "checkout_completed", "request_id": "success-1", "order_id": "ord_46d4c8f9", "payment_id": "pay_13d7d7ea5f", "status": 200, "latency_ms": 41.43}
+
+### grep -h '"timeout-1"' logs/checkout.log logs/payment.log | sort -s -t'"' -k4,4
+{"ts": "2026-11-23T19:59:20.222+00:00", "service": "checkout", "level": "INFO", "event": "checkout_received", "request_id": "timeout-1", "order_id": "ord_38310731", "amount": 49.99}
+{"ts": "2026-11-23T19:59:20.222+00:00", "service": "checkout", "level": "INFO", "event": "calling_payment", "request_id": "timeout-1", "order_id": "ord_38310731", "url": "http://localhost:8082/pay", "timeout_s": 2.0}
+{"ts": "2026-11-23T19:59:20.225+00:00", "service": "payment", "level": "INFO", "event": "payment_received", "request_id": "timeout-1", "order_id": "ord_38310731", "amount": 49.99}
+{"ts": "2026-11-23T19:59:20.225+00:00", "service": "payment", "level": "WARN", "event": "injected_delay", "request_id": "timeout-1", "delay_s": 5.0}
+{"ts": "2026-11-23T19:59:22.227+00:00", "service": "checkout", "level": "ERROR", "event": "payment_timeout", "request_id": "timeout-1", "order_id": "ord_38310731", "timeout_s": 2.0, "status": 504, "latency_ms": 2004.23, "detail": "Payment Service did not respond within 2.0s"}
+{"ts": "2026-11-23T19:59:25.229+00:00", "service": "payment", "level": "INFO", "event": "payment_completed", "request_id": "timeout-1", "order_id": "ord_38310731", "payment_id": "pay_43c96797c1", "status": 200, "latency_ms": 5003.96}
+
+### grep -h '"recovery-1"' logs/checkout.log logs/payment.log | sort -s -t'"' -k4,4
+{"ts": "2026-11-23T19:59:30.385+00:00", "service": "checkout", "level": "INFO", "event": "checkout_received", "request_id": "recovery-1", "order_id": "ord_3f9d9300", "amount": 49.99}
+{"ts": "2026-11-23T19:59:30.385+00:00", "service": "checkout", "level": "INFO", "event": "calling_payment", "request_id": "recovery-1", "order_id": "ord_3f9d9300", "url": "http://localhost:8082/pay", "timeout_s": 2.0}
+{"ts": "2026-11-23T19:59:30.387+00:00", "service": "payment", "level": "INFO", "event": "payment_received", "request_id": "recovery-1", "order_id": "ord_3f9d9300", "amount": 49.99}
+{"ts": "2026-11-23T19:59:30.387+00:00", "service": "payment", "level": "INFO", "event": "payment_completed", "request_id": "recovery-1", "order_id": "ord_3f9d9300", "payment_id": "pay_79a43eb1f3", "status": 200, "latency_ms": 0.1}
+{"ts": "2026-11-23T19:59:30.388+00:00", "service": "checkout", "level": "INFO", "event": "checkout_completed", "request_id": "recovery-1", "order_id": "ord_3f9d9300", "payment_id": "pay_79a43eb1f3", "status": 200, "latency_ms": 2.65}
+
